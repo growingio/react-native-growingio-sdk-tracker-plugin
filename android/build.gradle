@@ -54,6 +54,7 @@ repositories {
   mavenCentral()
   jcenter()
   google()
+  maven { url'http://oss.jfrog.org/artifactory/oss-snapshot-local'}
 
   def found = false
   def defaultDir = null
@@ -127,4 +128,6 @@ dependencies {
   // noinspection GradleDynamicVersion
   api 'com.facebook.react:react-native:+'
   implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
+
+  compileOnly "com.growingio.android:tracker:3.0.1-SNAPSHOT"
 }
