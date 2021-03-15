@@ -17,31 +17,51 @@ export default function App() {
       <Button
         title={'trackCustomEvent(string)'}
         onPress={() => {
-          GrowingTracker.trackCustomEvent('trackCustomEvent(string)', null, null, null);
+          GrowingTracker.trackCustomEvent(
+            'trackCustomEvent(string)',
+            null,
+            null,
+            null
+          );
         }}
       />
       <Button
         title={'trackCustomEvent(string, attributes)'}
         onPress={() => {
-          GrowingTracker.trackCustomEvent('trackCustomEvent(string)', {
-            key1: 'value1',
-            key2: 'value2',
-          }, null, null);
+          GrowingTracker.trackCustomEvent(
+            'trackCustomEvent(string)',
+            {
+              key1: 'value1',
+              key2: 'value2',
+            },
+            null,
+            null
+          );
         }}
       />
       <Button
         title={'trackCustomEvent(string, itemKey, itemId)'}
         onPress={() => {
-          GrowingTracker.trackCustomEvent('trackCustomEvent(string)', null, "itemKey", "itemId");
+          GrowingTracker.trackCustomEvent(
+            'trackCustomEvent(string)',
+            null,
+            'itemKey',
+            'itemId'
+          );
         }}
       />
       <Button
         title={'trackCustomEvent(string, attributes, itemKey, itemId)'}
         onPress={() => {
-          GrowingTracker.trackCustomEvent('trackCustomEvent(string)', {
-            key1: 'value1',
-            key2: 'value2',
-          }, "itemKey", "itemId");
+          GrowingTracker.trackCustomEvent(
+            'trackCustomEvent(string)',
+            {
+              key1: 'value1',
+              key2: 'value2',
+            },
+            'itemKey',
+            'itemId'
+          );
         }}
       />
       <Button
