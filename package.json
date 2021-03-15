@@ -1,6 +1,6 @@
 {
   "name": "react-native-growing-tracker",
-  "version": "0.1.0",
+  "version": "1.0.0-cdp",
   "description": "GrowingIO Tracker SDK 3.0",
   "main": "lib/commonjs/index",
   "module": "lib/module/index",
