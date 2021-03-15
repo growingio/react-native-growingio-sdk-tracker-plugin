@@ -13,43 +13,34 @@ class GrowingTrackerModule(reactContext: ReactApplicationContext) : ReactContext
     // See https://reactnative.dev/docs/native-modules-android
     @ReactMethod
     fun multiply(a: Int, b: Int, promise: Promise) {
-    
+
       promise.resolve(a * b)
-    
+
     }
 
   @ReactMethod
-  fun trackCustomEvent(eventName: String, attributes: ReadableMap?) {
-    attributes?.let {
+  fun trackCustomEvent(eventName: String, attributes: ReadableMap?, itemKey: String?, itemId: String?) {
+    notNull(attributes, itemId, itemKey) {
+      GrowingTracker.get().trackCustomEvent(eventName, readableMap2ArgMap(attributes), itemKey, itemId)
+      return
+    }
+
+    notNull(attributes) {
       GrowingTracker.get().trackCustomEvent(eventName, readableMap2ArgMap(attributes))
-    } ?: run {
-      GrowingTracker.get().trackCustomEvent(eventName)
+      return
     }
-  }
 
-  @ReactMethod
-  fun setConversionVariables(variables: ReadableMap) {
-    GrowingTracker.get().setConversionVariables(readableMap2ArgMap(variables))
+    notNull(itemKey, itemId) {
+      GrowingTracker.get().trackCustomEvent(eventName, itemKey, itemId)
+      return
+    }
+
+    GrowingTracker.get().trackCustomEvent(eventName)
   }
 
   @ReactMethod
   fun setLoginUserAttributes(attributes: ReadableMap) {
     GrowingTracker.get().setLoginUserAttributes(readableMap2ArgMap(attributes))
-  }
-
-  @ReactMethod
-  fun setVisitorAttributes(attributes: ReadableMap) {
-    GrowingTracker.get().setVisitorAttributes(readableMap2ArgMap(attributes))
-  }
-
-  @ReactMethod
-  fun setDataCollectionEnabled(enabled: Boolean) {
-    GrowingTracker.get().setDataCollectionEnabled(enabled)
-  }
-
-  @ReactMethod
-  fun getDeviceId(promise: Promise) {
-    promise.resolve(GrowingTracker.get().deviceId)
   }
 
   @ReactMethod
@@ -71,6 +62,22 @@ class GrowingTrackerModule(reactContext: ReactApplicationContext) : ReactContext
   fun cleanLocation() {
     GrowingTracker.get().cleanLocation()
   }
+
+  @ReactMethod
+  fun setDataCollectionEnabled(enabled: Boolean) {
+    GrowingTracker.get().setDataCollectionEnabled(enabled)
+  }
+
+  @ReactMethod
+  fun getDeviceId(promise: Promise) {
+    promise.resolve(GrowingTracker.get().deviceId)
+  }
+
+  inline fun <R> notNull(vararg args: Any?, block: () -> R) =
+    when (args.filterNotNull().size) {
+        args.size -> block()
+        else -> null
+    }
 
   private fun readableMap2ArgMap(readableMap: ReadableMap?): Map<String, String>? {
     return readableMap?.toHashMap()?.mapValues { it.value.toString() }

@@ -1,4 +1,5 @@
 #import "RCTGrowingTracker.h"
+#import <objc/message.h>
 
 @implementation RCTGrowingTracker
 
@@ -12,6 +13,7 @@ static id getGrowingTracker(SEL selector)
     Class realClazz = NSClassFromString(GrowingRealTrackerClassName);
     BOOL realResponds = [realClazz instancesRespondToSelector:selector];
     Class clazz = NSClassFromString(GrowingTrackerClassName);
+    realResponds |= [clazz instancesRespondToSelector:selector];
     BOOL responds = [clazz respondsToSelector:@selector(sharedInstance)];
     if (!realClazz || !realResponds || !clazz || !responds) {
         NSLog(@"RNGrowingTouch do not found GrowingTracker or GrowingRealTracker");
@@ -32,33 +34,37 @@ RCT_REMAP_METHOD(multiply,
   resolve(result);
 }
 
-RCT_REMAP_METHOD(getDeviceId,
-                 getDeviceIdwithResolver:(RCTPromiseResolveBlock)resolve
-                 withRejecter:(RCTPromiseRejectBlock)reject)
-{
-    SEL method = @selector(getDeviceId);
-    id growingTracker = getGrowingTracker(method);
-    if (growingTracker != nil) {
-        NSString* deviceId = [growingTracker performSelector:method];
-        resolve(deviceId);
-    }
-}
-
 RCT_REMAP_METHOD(trackCustomEvent,
-                 trackCustomEvent:(NSString *)eventName withAttributes:(NSDictionary*)attributes)
+                  trackCustomEvent:(NSString *)eventName withAttributes:(NSDictionary *)attributes itemKey:(NSString *)itemKey itemId:(NSString *)itemId)
 {
+    if (attributes != nil && itemKey != nil && itemId != nil) {
+        SEL method = @selector(trackCustomEvent:itemKey:itemId:withAttributes:);
+        id growingTracker = getGrowingTracker(method);
+        if (growingTracker != nil) {
+            ((void (*) (id, SEL, NSString *, NSString *, NSString *, NSDictionary *)) objc_msgSend) (growingTracker, method, eventName, itemKey, itemId, attributes);
+        }
+        return;
+    }
     if (attributes != nil) {
         SEL method = @selector(trackCustomEvent:withAttributes:);
         id growingTracker = getGrowingTracker(method);
         if (growingTracker != nil) {
             [growingTracker performSelector:method withObject:eventName withObject:attributes];
         }
-    } else {
-        SEL method = @selector(trackCustomEvent:);
+        return;
+    }
+    if (itemKey != nil && itemId != nil) {
+        SEL method = @selector(trackCustomEvent:itemKey:itemId:);
         id growingTracker = getGrowingTracker(method);
         if (growingTracker != nil) {
-            [growingTracker performSelector:method withObject:eventName];
+            ((void (*) (id, SEL, NSString *, NSString *, NSString *)) objc_msgSend) (growingTracker, method, eventName, itemKey, itemId);
         }
+        return;
+    }
+    SEL method = @selector(trackCustomEvent:);
+    id growingTracker = getGrowingTracker(method);
+    if (growingTracker != nil) {
+        [growingTracker performSelector:method withObject:eventName];
     }
 }
 
@@ -66,26 +72,6 @@ RCT_REMAP_METHOD(setLoginUserAttributes,
                  setLoginUserAttributes:(NSDictionary*)attributes)
 {
     SEL method = @selector(setLoginUserAttributes:);
-    id growingTracker = getGrowingTracker(method);
-    if (growingTracker != nil) {
-        [growingTracker performSelector:method withObject:attributes];
-    }
-}
-
-RCT_REMAP_METHOD(setVisitorAttributes,
-                 setVisitorAttributes:(NSDictionary*)attributes)
-{
-    SEL method = @selector(setVisitorAttributes:);
-    id growingTracker = getGrowingTracker(method);
-    if (growingTracker != nil) {
-        [growingTracker performSelector:method withObject:attributes];
-    }
-}
-
-RCT_REMAP_METHOD(setConversionVariables,
-                 setConversionVariables:(NSDictionary*)attributes)
-{
-    SEL method = @selector(setConversionVariables:);
     id growingTracker = getGrowingTracker(method);
     if (growingTracker != nil) {
         [growingTracker performSelector:method withObject:attributes];
@@ -114,22 +100,6 @@ RCT_REMAP_METHOD(cleanLoginUserId,
     }
 }
 
-RCT_REMAP_METHOD(setDataCollectionEnabled,
-                 setDataCollectionEnabled:(BOOL)enabled)
-{
-    SEL method = @selector(setDataCollectionEnabled:);
-    id growingTracker = getGrowingTracker(method);
-    if (growingTracker != nil) {
-//        NSMethodSignature* signature = [ NSClassFromString(GrowingRealTrackerClassName) instanceMethodSignatureForSelector:method];
-//        NSInvocation* invocation = [NSInvocation invocationWithMethodSignature: signature];
-//        [invocation setTarget:growingTracker];
-//        [invocation setSelector:method];
-//        [invocation setArgument:&enabled atIndex:2];
-//        [invocation invoke];
-        [growingTracker performSelector:method withObject:(__bridge id)(void * )enabled];
-    }
-}
-
 RCT_REMAP_METHOD(setLocation,
                  setLocation:(double)latitude longitude:(double)longitude)
 {
@@ -154,6 +124,34 @@ RCT_REMAP_METHOD(cleanLocation,
     id growingTracker = getGrowingTracker(method);
     if (growingTracker != nil) {
         [growingTracker performSelector:method];
+    }
+}
+
+RCT_REMAP_METHOD(setDataCollectionEnabled,
+                 setDataCollectionEnabled:(BOOL)enabled)
+{
+    SEL method = @selector(setDataCollectionEnabled:);
+    id growingTracker = getGrowingTracker(method);
+    if (growingTracker != nil) {
+//        NSMethodSignature* signature = [ NSClassFromString(GrowingRealTrackerClassName) instanceMethodSignatureForSelector:method];
+//        NSInvocation* invocation = [NSInvocation invocationWithMethodSignature: signature];
+//        [invocation setTarget:growingTracker];
+//        [invocation setSelector:method];
+//        [invocation setArgument:&enabled atIndex:2];
+//        [invocation invoke];
+        [growingTracker performSelector:method withObject:(__bridge id)(void * )enabled];
+    }
+}
+
+RCT_REMAP_METHOD(getDeviceId,
+                 getDeviceIdwithResolver:(RCTPromiseResolveBlock)resolve
+                 withRejecter:(RCTPromiseRejectBlock)reject)
+{
+    SEL method = @selector(getDeviceId);
+    id growingTracker = getGrowingTracker(method);
+    if (growingTracker != nil) {
+        NSString* deviceId = [growingTracker performSelector:method];
+        resolve(deviceId);
     }
 }
 

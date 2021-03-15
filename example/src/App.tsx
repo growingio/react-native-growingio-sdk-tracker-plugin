@@ -17,7 +17,7 @@ export default function App() {
       <Button
         title={'trackCustomEvent(string)'}
         onPress={() => {
-          GrowingTracker.trackCustomEvent('trackCustomEvent(string)', null);
+          GrowingTracker.trackCustomEvent('trackCustomEvent(string)', null, null, null);
         }}
       />
       <Button
@@ -26,31 +26,28 @@ export default function App() {
           GrowingTracker.trackCustomEvent('trackCustomEvent(string)', {
             key1: 'value1',
             key2: 'value2',
-          });
+          }, null, null);
         }}
       />
       <Button
-        title={'setConversionVariables(variables)'}
+        title={'trackCustomEvent(string, itemKey, itemId)'}
         onPress={() => {
-          GrowingTracker.setConversionVariables({
+          GrowingTracker.trackCustomEvent('trackCustomEvent(string)', null, "itemKey", "itemId");
+        }}
+      />
+      <Button
+        title={'trackCustomEvent(string, attributes, itemKey, itemId)'}
+        onPress={() => {
+          GrowingTracker.trackCustomEvent('trackCustomEvent(string)', {
             key1: 'value1',
             key2: 'value2',
-          });
+          }, "itemKey", "itemId");
         }}
       />
       <Button
         title={'setLoginUserAttributes(variables)'}
         onPress={() => {
           GrowingTracker.setLoginUserAttributes({
-            key1: 'value1',
-            key2: 'value2',
-          });
-        }}
-      />
-      <Button
-        title={'setVisitorAttributes(variables)'}
-        onPress={() => {
-          GrowingTracker.setVisitorAttributes({
             key1: 'value1',
             key2: 'value2',
           });

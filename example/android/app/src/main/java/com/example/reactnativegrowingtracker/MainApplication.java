@@ -12,7 +12,7 @@ import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 import com.reactnativegrowingtracker.GrowingTrackerPackage;
 import com.growingio.android.sdk.track.GrowingTracker;
-import com.growingio.android.sdk.track.TrackConfiguration;
+import com.growingio.android.sdk.track.CdpTrackConfiguration;
 
 public class MainApplication extends Application implements ReactApplication {
 
@@ -50,7 +50,7 @@ public class MainApplication extends Application implements ReactApplication {
     SoLoader.init(this, /* native exopackage */ false);
     initializeFlipper(this, getReactNativeHost().getReactInstanceManager()); // Remove this line if you don't want Flipper enabled
 
-    GrowingTracker.startWithConfiguration(this, new TrackConfiguration("projectId", "urlScheme").setDebugEnabled(true));
+    GrowingTracker.startWithConfiguration(this, new CdpTrackConfiguration("projectId", "urlScheme").setDataSourceId("dataSourceId").setDebugEnabled(true));
   }
 
   /**
