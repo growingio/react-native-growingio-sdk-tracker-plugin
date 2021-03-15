@@ -9,7 +9,7 @@ target 'GrowingTrackerExample' do
   use_react_native!(:path => config["reactNativePath"])
 
       pod 'react-native-growing-tracker', :path => '../..'
-      pod 'GrowingAnalytics-cdp/Tracker'
+      pod 'GrowingAnalytics/Tracker'
   
   # Enables Flipper.
   #
