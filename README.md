@@ -1,13 +1,13 @@
 # react-native-growing-tracker
 
-GrowingIO Tracker SDK 3.0
+GrowingIO Tracker SDK 3.0, CDP版本
 
 ## 环境配置
-请确保已经添加埋点SDK, 如果没有, 请移步至原生端SDK集成文档
+请确保已经添加CDP埋点SDK, 如果没有, 请移步至CDP原生端SDK集成文档
 
 ## 添加依赖
 
-`$ npm install react-native-growing-tracker --save`
+`$ npm install react-native-growing-tracker@1.0.0-cdp --save`
 
 ### 自动安装 (React Native 0.6.0版本及其以上可以跳过该步骤)
 
@@ -102,57 +102,31 @@ GrowingTracker.getDeviceId().then(setDeviceId);
 ```javascript
 GrowingTracker.setDataCollectionEnabled(true);
 ```
-### 7 设置访问用户属性
-#### 7.1 `GrowingTracker.setVisitorAttributes(attributes)`
-设置访问用户属性。
+### 7 设置登录用户属性
+#### 7.1 `GrowingTracker.setLoginUserAttributes(attributes)`
+设置登录用户属性。
 #### 7.2 参数说明
 | 参数名 |  类型   | 必填 | 默认值 |                 说明                  |
 | :----: | :-----: | :--: | :----: | :-----------------------------------: |
-| attributes | object |  是  |  undefine  | 访问用户属性 |
-#### 7.3 代码示例
-```javascript
-GrowingTracker.setVisitorAttributes({
-    key1: 'value1',
-    key2: 'value2',
-});
-```
-### 8 设置登录用户属性
-#### 8.1 `GrowingTracker.setLoginUserAttributes(attributes)`
-设置登录用户属性。
-#### 8.2 参数说明
-| 参数名 |  类型   | 必填 | 默认值 |                 说明                  |
-| :----: | :-----: | :--: | :----: | :-----------------------------------: |
 | attributes | object |  是  |  undefine  | 登录用户属性 |
-#### 8.3 代码示例
+#### 7.3 代码示例
 ```javascript
 GrowingTracker.setLoginUserAttributes({
     key1: 'value1',
     key2: 'value2',
 });
 ```
-### 9 设置转换变量
-#### 9.1 `GrowingTracker.setConversionVariables(variables)`
-设置转换变量。
-#### 9.2 参数说明
-| 参数名 |  类型   | 必填 | 默认值 |                 说明                  |
-| :----: | :-----: | :--: | :----: | :-----------------------------------: |
-| variables | object |  是  |  undefine  | 转换变量 |
-#### 9.3 代码示例
-```javascript
-GrowingTracker.setConversionVariables({
-    key1: 'value1',
-    key2: 'value2',
-});
-```
-### 10 自定义事件
-#### 10.1 `GrowingTracker.trackCustomEvent(eventName, attributes)`
+### 8 自定义事件
+#### 8.1 `GrowingTracker.trackCustomEvent(eventName, attributes, itemKey, itemId)`
 自定义事件。
-#### 10.2 参数说明
+#### 8.2 参数说明
 | 参数名 |  类型   | 必填 | 默认值 |                 说明                  |
 | :----: | :-----: | :--: | :----: | :-----------------------------------: |
 | eventName | string |  是  |  undefine  | 事件名称 |
 | attributes | object | 是 |  undefine  | 事件属性 |
-#### 10.3 代码示例
+| itemKey | string | 是 |  undefine  | 物品模型唯一标识属性 |
+| itemId | string | 是 |  undefine  | 物品模型唯一标识属性的值 |
+#### 8.3 代码示例
 ```javascript
 GrowingTracker.trackCustomEvent('trackCustomEvent(string)', null);
 

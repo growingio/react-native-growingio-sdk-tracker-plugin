@@ -52,6 +52,7 @@ android {
 
 repositories {
   mavenCentral()
+  maven { url 'https://www.jitpack.io' }
   jcenter()
   google()
   maven { url'http://oss.jfrog.org/artifactory/oss-snapshot-local'}
