@@ -7,7 +7,7 @@ GrowingIO Tracker SDK 3.0
 
 ## 添加依赖
 
-`$ npm install react-native-growing-tracker --save`
+`$ npm install react-native-growing-tracker@1.0.0 --save`
 
 ### 自动安装 (React Native 0.6.0版本及其以上可以跳过该步骤)
 
