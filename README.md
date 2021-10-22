@@ -7,7 +7,7 @@ GrowingIO Tracker SDK 3.0, CDP版本
 
 ## 添加依赖
 
-`$ npm install react-native-growing-tracker@1.0.0-cdp --save`
+`$ npm install react-native-growing-tracker@1.0.1-cdp --save`
 
 ### 使用本地模块(进行自定义修改)
 1. git clone 插件仓库
@@ -146,9 +146,9 @@ GrowingTracker.setLoginUserAttributes({
 | 参数名 |  类型   | 必填 | 默认值 |                 说明                  |
 | :----: | :-----: | :--: | :----: | :-----------------------------------: |
 | eventName | string |  是  |  undefine  | 事件名称 |
-| attributes | object | 是 |  undefine  | 事件属性 |
-| itemKey | string | 是 |  undefine  | 物品模型唯一标识属性 |
-| itemId | string | 是 |  undefine  | 物品模型唯一标识属性的值 |
+| attributes | object | 否 |  null  | 事件属性 |
+| itemKey | string | 否 |  null  | 物品模型唯一标识属性 |
+| itemId | string | 否 |  null  | 物品模型唯一标识属性的值 |
 #### 8.3 代码示例
 ```javascript
 GrowingTracker.trackCustomEvent('trackCustomEvent(string)', null);
