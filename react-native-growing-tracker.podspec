@@ -10,7 +10,7 @@ Pod::Spec.new do |s|
   s.license      = package["license"]
   s.authors      = package["author"]
 
-  s.platforms    = { :ios => "10.0" }
+  s.platforms    = { :ios => "8" }
   s.source       = { :git => "https://github.com/growingio/react-native-growingio-sdk-tracker-plugin/react-native-growing-tracker.git", :tag => "#{s.version}" }
 
   

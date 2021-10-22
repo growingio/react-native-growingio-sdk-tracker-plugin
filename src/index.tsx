@@ -1,22 +1,44 @@
 import { NativeModules } from 'react-native';
-
-type GrowingTrackerType = {
-  multiply(a: number, b: number): Promise<number>;
-  trackCustomEvent(
+export default class GrowingTracker {
+  static trackCustomEvent(
     eventName: string,
-    attributes: Object | null | undefined,
-    itemKey: string | null | undefined,
-    itemId: string | null | undefined
-  ): void;
-  setLoginUserAttributes(attributes: Object): void;
-  setLoginUserId(userId: string): void;
-  cleanLoginUserId(): void;
-  setLocation(latitude: number, longitude: number): void;
-  cleanLocation(): void;
-  setDataCollectionEnabled(enabled: boolean): void;
-  getDeviceId(): Promise<string>;
-};
+    attributes: Object | null | undefined = null,
+    itemKey: string | null | undefined = null,
+    itemId: string | null | undefined = null
+  ): void {
+    return NativeModules.GrowingTracker.trackCustomEvent(
+      eventName,
+      attributes,
+      itemKey,
+      itemId
+    );
+  }
 
-const { GrowingTracker } = NativeModules;
+  static setLoginUserAttributes(attributes: Object): void {
+    return NativeModules.GrowingTracker.setLoginUserAttributes(attributes);
+  }
 
-export default GrowingTracker as GrowingTrackerType;
+  static setLoginUserId(userId: string): void {
+    return NativeModules.GrowingTracker.setLoginUserId(userId);
+  }
+
+  static cleanLoginUserId(): void {
+    return NativeModules.GrowingTracker.cleanLoginUserId();
+  }
+
+  static setLocation(latitude: number, longitude: number): void {
+    return NativeModules.GrowingTracker.setLocation(latitude, longitude);
+  }
+
+  static cleanLocation(): void {
+    return NativeModules.GrowingTracker.cleanLocation();
+  }
+
+  static setDataCollectionEnabled(enabled: boolean): void {
+    return NativeModules.GrowingTracker.setDataCollectionEnabled(enabled);
+  }
+
+  static async getDeviceId(): Promise<string> {
+    return await NativeModules.GrowingTracker.getDeviceId();
+  }
+}
