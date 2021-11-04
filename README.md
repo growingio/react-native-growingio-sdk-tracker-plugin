@@ -7,7 +7,30 @@ GrowingIO Tracker SDK 3.0
 
 ## 添加依赖
 
-`$ npm install react-native-growing-tracker@1.0.0 --save`
+`$ npm install react-native-growing-tracker@1.0.1 --save`
+
+### 使用本地模块(进行自定义修改)
+1. git clone 插件仓库
+```
+git clone git@github.com:growingio/react-native-growingio-sdk-tracker-plugin.git
+git checkout cdp
+```
+2. 在项目的package.json中添加对应模块
+```
+"dependencies": {
+    ...
+    "react-native-growing-tracker": "file:path/react-native-growingio-sdk-tracker-plugin"
+  },
+```
+3. 获取依赖
+```
+yarn
+```
+4. 执行项目
+```
+react-native run-ios
+react-native run-android
+```
 
 ### 自动安装 (React Native 0.6.0版本及其以上可以跳过该步骤)
 
@@ -151,7 +174,7 @@ GrowingTracker.setConversionVariables({
 | 参数名 |  类型   | 必填 | 默认值 |                 说明                  |
 | :----: | :-----: | :--: | :----: | :-----------------------------------: |
 | eventName | string |  是  |  undefine  | 事件名称 |
-| attributes | object | 是 |  undefine  | 事件属性 |
+| attributes | object | 否 |  undefine  | 事件属性 |
 #### 10.3 代码示例
 ```javascript
 GrowingTracker.trackCustomEvent('trackCustomEvent(string)', null);

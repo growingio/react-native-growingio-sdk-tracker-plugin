@@ -20,18 +20,6 @@ static id getGrowingTracker(SEL selector)
     return [clazz performSelector:@selector(sharedInstance)];
 }
 
-// Example method
-// See // https://reactnative.dev/docs/native-modules-ios
-RCT_REMAP_METHOD(multiply,
-                 multiplyWithA:(nonnull NSNumber*)a withB:(nonnull NSNumber*)b
-                 withResolver:(RCTPromiseResolveBlock)resolve
-                 withRejecter:(RCTPromiseRejectBlock)reject)
-{
-  NSNumber *result = @([a floatValue] * [b floatValue]);
-
-  resolve(result);
-}
-
 RCT_REMAP_METHOD(getDeviceId,
                  getDeviceIdwithResolver:(RCTPromiseResolveBlock)resolve
                  withRejecter:(RCTPromiseRejectBlock)reject)

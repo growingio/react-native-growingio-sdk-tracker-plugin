@@ -129,5 +129,5 @@ dependencies {
   api 'com.facebook.react:react-native:+'
   implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
 
-  compileOnly "com.growingio.android:tracker:3.0.1-SNAPSHOT"
+  compileOnly "com.growingio.android:tracker:3.3.0"
 }
